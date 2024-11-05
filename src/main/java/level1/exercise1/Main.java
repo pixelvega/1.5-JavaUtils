@@ -16,12 +16,12 @@ public class Main {
         switch (command.toLowerCase()) {
             case "list":
                 System.out.println("Ejecutando Ejercicio 1: Listar el contenido de un directorio alfabéticamente.");
-                manager.listSortedDirectory(path);
+                manager.sortAndListDirectory(path);
                 break;
 
             case "tree":
                 System.out.println("Ejecutando Ejercicio 2: Listar el árbol de directorios recursivamente.");
-                manager.listSortedDirectoryTree(path, "");
+                manager.sortAndListDirectoryTree(path, "");
                 break;
 
             case "save_tree":
@@ -46,13 +46,12 @@ public class Main {
                     return;
                 }
                 String serializeOutputPath = args[2];
-                SampleObject sample = new SampleObject("John Doe", 30);
+                SampleObject sample = new SampleObject("Juan Perez", 30);
                 System.out.println("Ejecutando Ejercicio 5: Serializar un objeto Java.");
                 manager.serializeObject(sample, serializeOutputPath);
                 break;
 
             case "deserialize":
-                // Ejercicio 5: Deserializar un objeto Java desde un archivo .ser
                 System.out.println("Ejecutando Ejercicio 5: Deserializar un objeto Java.");
                 Object deserializedObj = manager.deserializeObject(path);
                 System.out.println("Objeto deserializado: " + deserializedObj);

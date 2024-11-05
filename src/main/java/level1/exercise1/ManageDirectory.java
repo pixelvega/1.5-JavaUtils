@@ -4,12 +4,28 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Properties;
+
 
 public class ManageDirectory {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Properties config;
 
+    public ManageDirectory() {
+        config = new Properties();
+        try (InputStream input = new FileInputStream("config.properties")) {
+            config.load(input);
+            System.out.println("Configuration loaded successfully.");
+        } catch (IOException e) {
+            System.err.println("Error loading configuration: " + e.getMessage());
+        }
+    }
 
-    public void listSortedDirectory(String directoryPath) {
+    public String getConfigProperty(String key) {
+        return config.getProperty(key);
+    }
+
+    public void sortAndListDirectory(String directoryPath) {
         File directory = new File(directoryPath);
 
         if (!directory.isDirectory()) {
@@ -31,7 +47,7 @@ public class ManageDirectory {
         }
     }
 
-    public void listSortedDirectoryTree(String directoryPath, String indent) {
+    public void sortAndListDirectoryTree(String directoryPath, String indent) {
         File directory = new File(directoryPath);
 
         if (!directory.isDirectory()) {
@@ -50,7 +66,7 @@ public class ManageDirectory {
                 System.out.printf("%s[%s] %s - Last Modified: %s%n", indent, type, file.getName(), lastModified);
 
                 if (file.isDirectory()) {
-                    listSortedDirectoryTree(file.getAbsolutePath(), indent + "    ");
+                    sortAndListDirectoryTree(file.getAbsolutePath(), indent + "    ");
                 }
             }
 
